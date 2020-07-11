@@ -1,5 +1,6 @@
 import User from '../model/User';
 import api from '../../services/api';
+import sequelize from 'sequelize';
 
 class UserController {
     async store(req, res) {
@@ -32,7 +33,7 @@ class UserController {
         const users = await User.findAll({
             attributes: ['full_name', 'contributors', 'pulls'],
         });
-        return res.json(users);
+        return res.json(users)
     }
 }
 
