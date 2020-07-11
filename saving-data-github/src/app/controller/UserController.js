@@ -19,7 +19,6 @@ class UserController {
 
         const params = { state: 'open' };
         const pulls_data = await api.get(`/repos/${req.body.full_name}/pulls`, params);
-
         const user = await User.create({
             full_name: req.body.full_name,
             contributors: contributors_data.data,
@@ -27,6 +26,13 @@ class UserController {
         });
 
         return res.json(user);
+    }
+
+    async index(req, res) {
+        const users = await User.findAll({
+            attributes: ['full_name', 'contributors', 'pulls'],
+        });
+        return res.json(users);
     }
 }
 
