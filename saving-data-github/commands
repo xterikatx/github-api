@@ -1,0 +1,3 @@
+for create tables in database
+
+yarn sequelize db:migrate
