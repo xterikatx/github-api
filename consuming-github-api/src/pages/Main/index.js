@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
-import { Container, Form, SubmitButton, List, Menu } from './styles';
+import { Container, Form, SubmitButton, List } from './styles';
 import api from '../../services/api';
 import User from '../../services/requests';
 
@@ -60,8 +60,8 @@ class Main extends Component {
                 <Container>
                     <h1>
                         <FaGithubAlt />
-                    Adicionando repositórios...
-                </h1>
+                        Adicionando repositórios...
+                    </h1>
 
                     <Form onSubmit={this.handleSubmit}>
                         <input
