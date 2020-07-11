@@ -22,3 +22,7 @@ This is an application with Frontend (**React.js & Styled-Components**) and Back
 - and finally, run the command `yarn dev` to start the application.
 
 ****be aware, that to have access to the Backend application, it is necessary to have `Postman or Insomnia` as tools, and `Postgres` and `NodeJs` installed on your machine.****
+
+# frontend screenshots
+![print 1](./consuming-github-api/screenshots/image1.PNG)
+![print 2](./consuming-github-api/screenshots/image2.PNG)

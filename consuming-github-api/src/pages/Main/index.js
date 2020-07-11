@@ -41,7 +41,7 @@ class Main extends Component {
             window.location.href = `/`;
         }
         else {
-            alert('Ops... ocorreu um erro!')
+            alert('Ops... ocorreu um erro no servidor!')
         }
         this.setState({ loading: false });
     }
@@ -52,7 +52,6 @@ class Main extends Component {
         const { username, repositories, loading } = this.state;
         return (
             <>
-                <br />
                 <h1 style={{ color: '#fff', textAlign: 'center' }}>
                     Olá, bem-vindo(a) {this.state.username}
                 </h1>
