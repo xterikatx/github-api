@@ -53,3 +53,14 @@ export const List = styled.ul`
         }
     }
 `;
+
+export const Loading = styled.div`
+    color: #222;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Owner = styled.div``;

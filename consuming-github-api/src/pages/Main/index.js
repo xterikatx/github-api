@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 import { Container, Form, SubmitButton, List } from './styles';
-import api from '../../services/api';
+import api_axios from '../../services/api';
 import User from '../../services/requests';
 
 
@@ -24,17 +24,17 @@ class Main extends Component {
         event.preventDefault();
         this.setState({ loading: true });
         const { username } = this.state;
-        const response = await api.get(`users/${username}/repos`);
+        const response = await api_axios.get(`users/${username}/repos`);
         this.setState({ repositories: response.data, loading: false })
     }
 
     handleSave = async event => {
-        console.log('params', event);
         this.setState({ loading: true });
-
         const full_name = event;
-        const response = await User.create(full_name);
-        console.log('front-end', response);
+        const descriptionRepo = await api_axios.get(`repos/${full_name}`)
+        const description = descriptionRepo.data.description;
+
+        const response = await User.create(full_name, description);
 
         if (response.full_name === full_name) {
             alert('Adicionado com sucesso!');

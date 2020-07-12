@@ -22,6 +22,7 @@ class UserController {
         const pulls_data = await api.get(`/repos/${req.body.full_name}/pulls`, params);
         const user = await User.create({
             full_name: req.body.full_name,
+            description: req.body.description,
             contributors: contributors_data.data,
             pulls: pulls_data.data
         });
@@ -31,7 +32,7 @@ class UserController {
 
     async index(req, res) {
         const users = await User.findAll({
-            attributes: ['id','full_name', 'contributors', 'pulls'],
+            attributes: ['id', 'full_name', 'description', 'contributors', 'pulls'],
         });
         return res.json(users)
     }

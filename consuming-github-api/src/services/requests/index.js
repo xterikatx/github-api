@@ -1,8 +1,9 @@
 import {API} from './api';
 
 const User = {
-    create: async (full_name) => {
-        const response = await API().post('/users', { full_name } );
+    create: async (full_name, description) => {
+        const params = { full_name, description }
+        const response = await API().post('/users', params );
         return await response.data
     },
 

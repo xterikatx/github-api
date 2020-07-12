@@ -5,6 +5,7 @@ class User extends Model {
         super.init(
             {
                 full_name: Sequelize.STRING,
+                description: Sequelize.STRING,
                 contributors: Sequelize.JSON,
                 pulls: Sequelize.JSON,
             },
