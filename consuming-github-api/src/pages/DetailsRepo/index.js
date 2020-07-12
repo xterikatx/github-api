@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { FaGithubAlt } from 'react-icons/fa';
-import { Container, List, Loading, Owner } from './styles';
+import { Container, PullList, ContributorsList, Owner } from './styles';
 import { API } from '../../services/requests/api';
-
+import moment from 'moment';
 export default class DetailsRepo extends Component {
-    state = { 
-        full_name: '', 
-        contributors: [], 
-        pulls: [], 
-        profile: '',
-        loading: true
+    state = {
+        full_name: '',
+        description: '',
+        contributors: [],
+        pulls: [],
+        withoutPulls: false,
     }
 
     async componentDidMount() {
@@ -20,32 +19,26 @@ export default class DetailsRepo extends Component {
 
         this.setState({
             full_name: response.data.full_name,
+            description: response.data.description,
             contributors: response.data.contributors,
             pulls: response.data.pulls,
             profile: response.data.contributors[0].avatar_url,
-            loading: false,
         })
 
-        console.log(this.state.full_name);
-        console.log('contr', this.state.contributors)
-        console.log('pulls', this.state.pulls)
+
+        if (this.state.pulls.length === 0) {
+            this.setState({ withoutPulls: true })
+        }
     }
     render() {
-        const { full_name, contributors, pulls, loading, profile } = this.state;
-        // if(loading){
-        //     return <Loading>Carregando</Loading>
-        //  }
-
-        // {pulls.slice(0,3).map(repository => (
-        //     <>
-        //         <h3>Contribuidores</h3>
-
-        //         <li key={repository.title}>
-        //             <span>{repository.title}</span>
-        //             {/* <Link to="/localhost">Detalhes</Link> */}
-        //         </li>
-        //     </>
-        // ))}
+        const {
+            full_name,
+            contributors,
+            pulls,
+            profile,
+            description,
+            withoutPulls
+        } = this.state;
 
         return (
             <>
@@ -57,18 +50,52 @@ export default class DetailsRepo extends Component {
                         <FaGithubAlt />
                         Detalhes do repositórios
                     </h1>
+                    <Owner>
+                        <img src={profile} alt="profile" />
+                        <h3>{full_name}</h3>
+                        <p>{description}</p>
+                    </Owner>
 
-                <Owner>
-                    <img src={profile} alt="profile" />
-                    <h3>{this.state.full_name}</h3>
+                    <ContributorsList>
+                        <h3>Contribuidores</h3>
 
-                </Owner>
+                        {contributors.map(contributors => (
+                            <>
+                                <li key={String(contributors.id)}>
+                                    <img src={contributors.avatar_url} alt="profile" />
+                                    <div>
+                                        <strong>
+                                            <p>{contributors.login}</p>
+                                        </strong>
+                                        <a href={contributors.html_url}>
+                                            visitar perfil
+                                        </a>
 
+                                    </div>
+                                </li>
+                            </>
+                        ))}
+                    </ContributorsList>
+                    <PullList>
+                        <h3>Lista dos 3 Últimos Pull Requests</h3>
+                        {withoutPulls ? <li><strong>Sem solicitações de pulls pulls</strong></li> : null}
+                        {pulls.slice(0, 3).map(pull => (
+                            <>
 
-                    {/* <List>
-                        {loading ? <Loading>Carregando...</Loading> : null}
-
-                    </List> */}
+                                <li key={String(pull.id)}>
+                                    <img src={pull.user.avatar_url} alt="profile" />
+                                    <div>
+                                        <strong>
+                                            <p>{pull.title}</p>
+                                        </strong>
+                                        <a>
+                                            {moment(pull.created_at).format("MMMM Do YYYY")}
+                                        </a>
+                                    </div>
+                                </li>
+                            </>
+                        ))}
+                    </PullList>
                 </Container>
             </>
         )

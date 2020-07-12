@@ -14,7 +14,6 @@ export default class Repository extends Component {
     async componentDidMount() {
         const response = await API().get(`/users`);
         this.setState({ repositories: response.data });
-        console.log(response.data);
     }
 
     render() {
@@ -33,8 +32,7 @@ export default class Repository extends Component {
                         {repositories.map(repository => (
                             <li key={repository.full_name}>
                                 <span>{repository.full_name}</span>
-                                {console.log(repository)}
-                                <Link to={`/details/${encodeURIComponent(repository.id)}`} onClick={()=>{console.log(repository)}}>Detalhes</Link>
+                                <Link to={`/details/${encodeURIComponent(repository.id)}`}>Detalhes</Link>
                             </li>
                         ))}
                     </List>
