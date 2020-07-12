@@ -38,7 +38,7 @@ class Main extends Component {
 
         if (response.full_name === full_name) {
             alert('Adicionado com sucesso!');
-            window.location.href = `/`;
+            window.location.href = `/repository`;
         }
         else {
             alert('Ops... ocorreu um erro no servidor!')
